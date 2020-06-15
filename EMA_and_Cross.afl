@@ -1,0 +1,34 @@
+/////////////////////////////////////////////////////////////////////////
+// EMA dan Cross
+/////////////////////////////////////////////////////////////////////////
+
+EMA5 = round(EMA(C,5));
+EMA20 = round(EMA(C,20));
+EMA50 = round(EMA(C,50));
+EMA90 = round(EMA(C,90));
+EMA168 = round(EMA(C,168));
+
+AddColumn(EMA5, "EMA 5");
+AddColumn(EMA20, "EMA 20");
+AddColumn(EMA50, "EMA 50");
+AddColumn(EMA90, "EMA 90");
+AddColumn(EMA168, "EMA 6 month");
+
+// cek EMA
+BreakEMA5 = C > EMA5;
+BreakEMA20 = C > EMA20;
+BreakEMA50 = C > EMA50;
+BreakEMA90 = C > EMA90;
+BreakEMA168 = C > EMA168;
+
+BreakEMA = WriteIf( BreakEMA5, "Break EMA 5", WriteIf( BreakEMA20, "Break EMA 20", WriteIf( BreakEMA50, "Break EMA 50", WriteIf( BreakEMA90, "Break EMA 90", WriteIf( BreakEMA168, "Break EMA 6 Mon", "Not break all EMA")))));
+AddTextColumn( BreakEMA, "Break EMA" );
+
+//check for Golden dan Dead Cross
+EMA1 = EMA(C,21);
+EMA2 = EMA(C,34);
+GOLDENCROSS=Cross (EMA1,EMA2);
+DEADCROSS=Cross (EMA2,EMA1);
+
+txtGC = WriteIf( GOLDENCROSS, "Golden Cross", WriteIf( DEADCROSS, "Dead Cross", "Netral" ));
+AddTextColumn( txtGC, "Cross Position" ); 
