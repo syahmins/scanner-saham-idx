@@ -1,0 +1,11 @@
+// Open dan Close Price
+AddColumn( Open, "Open" );
+AddColumn( Close, "Close" );
+AddColumn( Close-Open, "Difference" );
+
+// Previous Close Price
+Kemarin=TimeFrameGetPrice( "C", inDaily, -1 );
+AddColumn( Kemarin, "Prev. Close");
+
+// Volume
+AddColumn( V, "Volume (Lot)");
