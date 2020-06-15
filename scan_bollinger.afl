@@ -1,0 +1,18 @@
+//===================== Bollinger band ==============================
+// to get higher value, lower value, and squeze position.
+//===================================================================
+
+bbtop = round(BBandTop(C, 20, 2.5));
+bbbot = round(BBandBot(C, 20, 2.5));
+
+BBRange = bbtop - bbbot;
+IsBBSqueeze = BBRange < MA(BBRange, 100);
+
+sqeezcolor = ColorRGB(194, 220, 218);
+
+AddColumn( bbtop, "BB Top" );
+AddColumn( bbbot, "BB Bottom" );
+SMA25 = round(EMA(C,20));
+AddColumn( SMA25, "BB Mid" );
+SqueezeYN=WriteIf( IsBBSqueeze>0, "Yes" , "No") ;
+AddTextColumn( SqueezeYN, "Squeeze" );
